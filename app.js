@@ -182,10 +182,33 @@ const Dati = {
     template: `
         <div>
             <h2>Dati</h2>
-            <p>Questa è la pagina dei dati.</p>
+            <p>Questa è la pagina per i dati.</p>
+            <div>{{ data }}</div>
         </div>
-    `
+    `,
+    data() {
+        return {
+            data: null
+        };
+    },
+    mounted() {
+        fetch('/dati.json')
+            .then(response => response.json())
+            .then(data => {
+                this.data = ""
+                for (var i = 0; i < data.length; i++) {
+                    this.data = this.data + data[i].Settore + "    "+ data[i].CasiUso + "\n"
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 };
+
+    
+
+
 
 const InserimentoDati = {
     template: `
